@@ -45,8 +45,8 @@ public struct ResourceRequest<T: Decodable> {
     var decoder: Decoder? {
         switch resource {
         case .audioFile(_): return { payload in
-            guard let payload = payload as? [String: String] else { throw ParseError() }
-            return URL(string: payload["url"]!) as! T
+            guard let url = payload["url"] as? String else { throw ParseError() }
+            return URL(string: url) as! T
         }
         default: return nil
         }
